@@ -28,6 +28,7 @@ exec $cc \
     -nostdlib \
     --sysroot "$libc" \
     -isystem "$libc_inc" \
+    -isystem "$(dirname $(which $cc))/../lib/clang/8.0.0/include" \
     -L-user-start \
     $sflags \
     $libc_lib/crt1.o \
