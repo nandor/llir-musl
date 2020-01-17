@@ -23,13 +23,18 @@ done
 exec $cc \
     -B"$thisdir" \
     -fuse-ld=musl-clang \
-    -static-libgcc \
+    -static \
     -nostdinc \
+    -nostdlib \
     --sysroot "$libc" \
     -isystem "$libc_inc" \
     -L-user-start \
     $sflags \
+    $libc_lib/crt1.o \
+    $libc_lib/crti.o \
     "$@" \
+    $libc_lib/crtn.o \
     $eflags \
     -L"$libc_lib" \
-    -L-user-end
+    -L-user-end \
+    -Wno-unused-command-line-argument
