@@ -338,6 +338,7 @@ powerpc*|ppc*) ARCH=powerpc ;;
 riscv64*) ARCH=riscv64 ;;
 sh[1-9bel-]*|sh|superh*) ARCH=sh ;;
 s390x*) ARCH=s390x ;;
+llir*) ARCH=llir ;;
 unknown) fail "$0: unable to detect target arch; try $0 --target=..." ;;
 *) fail "$0: unknown or unsupported target \"$target\"" ;;
 esac
@@ -468,7 +469,7 @@ tryflag CFLAGS_AUTO -pipe
 # pointer is no longer needed for debugging.
 #
 if fnmatch '-g*|*\ -g*' "$CFLAGS_AUTO $CFLAGS" ; then :
-else 
+else
 tryflag CFLAGS_AUTO -fomit-frame-pointer
 fi
 

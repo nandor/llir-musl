@@ -29,7 +29,12 @@ int _setjmp (jmp_buf);
 _Noreturn void _longjmp (jmp_buf, int);
 #endif
 
+#ifdef __llir__
+__attribute__((llir_setjmp)) int setjmp (jmp_buf);
+#else
 int setjmp (jmp_buf);
+#endif
+
 _Noreturn void longjmp (jmp_buf, int);
 
 #define setjmp setjmp
