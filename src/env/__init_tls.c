@@ -81,7 +81,6 @@ extern weak hidden const size_t _DYNAMIC[];
 
 static void static_init_tls(size_t *aux)
 {
-#ifndef __llir__
 	unsigned char *p;
 	size_t n;
 	Phdr *phdr, *tls_phdr=0;
@@ -149,7 +148,6 @@ static void static_init_tls(size_t *aux)
 	/* Failure to initialize thread pointer is always fatal. */
 	if (__init_tp(__copy_tls(mem)) < 0)
 		a_crash();
-#endif
 }
 
 weak_alias(static_init_tls, __init_tls);
