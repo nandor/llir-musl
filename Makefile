@@ -73,7 +73,7 @@ ALL_TOOLS = obj/musl-gcc
 WRAPCC_GCC = gcc
 WRAPCC_CLANG = clang
 
-LDSO_PATHNAME = $(syslibdir)/ld-musl-$(ARCH)$(SUBARCH).so.1
+LDSO_PATHNAME = $(libdir)/ld-musl-$(ARCH)$(SUBARCH).so.1
 
 -include config.mak
 -include $(srcdir)/arch/$(ARCH)/arch.mak
