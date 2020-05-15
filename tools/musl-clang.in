@@ -39,12 +39,8 @@ has_no_flag() {
     return 0
 }
 
-args_pre="-nostdinc"
+args_pre=""
 args_post=""
-
-if has_no_flag '-nostdinc' "$@"; then
-    args_pre="$args_pre -isystem $libc_inc -I"
-fi
 
 if has_no_flag '-c' "$@" && has_no_flag '-S' "$@" && has_no_flag '-E' "$@"
 then
