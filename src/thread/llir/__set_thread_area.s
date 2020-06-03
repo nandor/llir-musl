@@ -1,11 +1,11 @@
-  .code
+  .text
   .globl __set_thread_area
   .hidden __set_thread_area
 __set_thread_area:
   .call       c
   .args       0, i64
 
-  mov.i64     $0, 156
+  mov.i64     $0, 158
   mov.i64     $1, 0x1002
   arg.i64     $2, 0
   # arch_prctl(SET_FS, arg)

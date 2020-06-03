@@ -1,5 +1,5 @@
 
-  .code
+  .text
   .globl longjmp
 longjmp:
   .noinline
