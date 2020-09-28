@@ -3,7 +3,7 @@
   .globl setjmp
 setjmp:
   .call       setjmp
-  .args       0, i64
+  .args       i64
 
   arg.i64     $0, 0
 

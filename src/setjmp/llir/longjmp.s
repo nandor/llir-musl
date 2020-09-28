@@ -3,7 +3,7 @@
   .globl longjmp
 longjmp:
   .noinline
-  .args         0, i64, i64
+  .args         i64, i64
   .call         c
 
   arg.i64       $0, 0
