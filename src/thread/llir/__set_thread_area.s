@@ -1,4 +1,4 @@
-  .text
+  .section .text
   .globl __set_thread_area
   .hidden __set_thread_area
 __set_thread_area:

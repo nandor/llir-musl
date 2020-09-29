@@ -1,5 +1,5 @@
 
-  .text
+  .section .text
   .globl longjmp
 longjmp:
   .noinline

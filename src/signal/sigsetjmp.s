@@ -1,5 +1,5 @@
 
-  .text
+  .section .text
   .globl sigsetjmp
 sigsetjmp:
   .call         setjmp
