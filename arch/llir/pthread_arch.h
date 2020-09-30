@@ -1,13 +1,8 @@
-static inline struct pthread *__pthread_self()
+static inline uintptr_t __get_tp()
 {
-	struct pthread *self;
-	__asm__
-    ( "mov.i64 %0, $fs"
-    : "=r" (self)
-    );
-	return self;
+  uintptr_t tp;
+	__asm__ ("mov.i64 %0, $fs" : "=r" (tp) );
+	return tp;
 }
-
-#define TP_ADJ(p) (p)
 
 #define MC_PC gregs[REG_RIP]
