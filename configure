@@ -338,7 +338,8 @@ powerpc*|ppc*) ARCH=powerpc ;;
 riscv64*) ARCH=riscv64 ;;
 sh[1-9bel-]*|sh|superh*) ARCH=sh ;;
 s390x*) ARCH=s390x ;;
-llir*) ARCH=llir ;;
+llir_x86_64*) ARCH=llir_x86_64 ;;
+llir_x86_64*) ARCH=llir_x86_64 ;;
 unknown) fail "$0: unable to detect target arch; try $0 --target=..." ;;
 *) fail "$0: unknown or unsupported target \"$target\"" ;;
 esac
