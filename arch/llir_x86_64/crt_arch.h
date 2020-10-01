@@ -1,0 +1,18 @@
+__asm__(
+"  .section .text \n"
+"  .weak _DYNAMIC \n"
+"  .hidden _DYNAMIC, \".text\" \n"
+"  .globl " START " \n"
+START ": \n"
+"   mov.i64 $1, _DYNAMIC\n"
+"   mov.i64 $2, " START "_c\n"
+"   mov.i64 $3, $rsp\n"
+"   mov.i64 $4, 8\n"
+"   add.i64 $5, $3, $4\n"
+"   mov.i64 $3, -16\n"
+"   and.i64 $4, $5, $3\n"
+"   set.i64 $rsp, $4\n"
+"   tcall.c  $2, $5, $1\n"
+"   trap\n"
+"   .end\n"
+);
