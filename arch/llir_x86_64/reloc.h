@@ -12,8 +12,7 @@
 #define REL_TLSDESC     R_X86_64_TLSDESC
 
 #define CRTJMP(pc,sp) __asm__ __volatile__ \
-  ( "set.i64 $rsp, %1\n" \
-    "ji %0" \
+  ( "raise %0, %1\n" \
   : \
   : "r"(pc), "r"(sp) \
   : "memory" \

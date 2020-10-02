@@ -33,3 +33,11 @@ static inline int a_swap(volatile int *p, int v)
 		);
 	return v;
 }
+
+#ifndef a_crash
+#define a_crash a_crash
+static inline void a_crash()
+{
+	__asm__ __volatile__ ( "trap" : : : "memory" );
+}
+#endif
