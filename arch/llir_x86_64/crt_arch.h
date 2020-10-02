@@ -12,7 +12,7 @@ START ": \n"
 "   mov.i64 $3, -16\n"
 "   and.i64 $4, $5, $3\n"
 "   set.i64 $rsp, $4\n"
-"   tcall.c  $2, $5, $1\n"
+"   call.c  $2, $5, $1\n"
 "   trap\n"
 "   .end\n"
 );
