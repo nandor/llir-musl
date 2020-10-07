@@ -8,14 +8,12 @@ setjmp:
   arg.i64     $0, 0
 
   mov.i64     $1, $frame_addr
+  st          [$0], $1
+
   mov.i64     $2, 8
-  add.i64     $3, $1, $2
+  add.i64     $3, $0, $2
+  mov.i64     $4, $ret_addr
+  st          [$3], $4
 
-  st          [$0], $3
-  add.i64     $4, $2, $0
-
-  mov.i64     $5, $ret_addr
-  st          [$4], $5
-
-  mov.i64     $6, 0
-  ret         $6
+  mov.i64     $5, 0
+  ret         $5
