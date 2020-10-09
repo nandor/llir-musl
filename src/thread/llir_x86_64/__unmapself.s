@@ -6,6 +6,6 @@ __unmapself:
 
   mov.i64       $2, 60  # exit
   mov.i64       $3, 0
-  syscall.i64   $4, $2, $3
+  syscall       $2, $3
 
   trap                  # Should not reach here
