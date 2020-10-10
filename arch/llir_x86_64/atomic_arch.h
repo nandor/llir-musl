@@ -2,7 +2,7 @@
 static inline int a_cas(volatile int *p, int t, int s)
 {
 	__asm__ __volatile__
-		( "cmpxchg.i32  %0, %1, %3, %2"
+		( "x86_cmpxchg.i32  %0, %1, %3, %2"
 		: "=r"(t)
 		: "r"(p), "r"(t), "r"(s)
 		: "memory"
@@ -14,7 +14,7 @@ static inline int a_cas(volatile int *p, int t, int s)
 static inline void *a_cas_p(volatile void *p, void *t, void *s)
 {
 	__asm__
-		( "cmpxchg.i64  %0, %1, %3, %2"
+		( "x86_cmpxchg.i64  %0, %1, %3, %2"
 		: "=r"(t)
 		: "r"(p), "r"(t), "r"(s)
 		: "memory"
@@ -26,7 +26,7 @@ static inline void *a_cas_p(volatile void *p, void *t, void *s)
 static inline int a_swap(volatile int *p, int v)
 {
 	__asm__ __volatile__
-		( "xchg.i32 %0, %1, %2"
+		( "x86_xchg.i32 %0, %1, %2"
 		: "=r"(v)
 		: "r"(p), "r"(v)
 		: "memory"
