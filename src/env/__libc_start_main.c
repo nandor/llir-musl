@@ -58,12 +58,10 @@ void __init_libc(char **envp, char *pn)
 
 static void libc_start_init(void)
 {
-#ifndef __llir__
 	_init();
 	uintptr_t a = (uintptr_t)&__init_array_start;
 	for (; a<(uintptr_t)&__init_array_end; a+=sizeof(void(*)()))
 		(*(void (**)(void))a)();
-#endif
 }
 
 weak_alias(libc_start_init, __libc_start_init);

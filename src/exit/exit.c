@@ -16,12 +16,10 @@ extern weak hidden void (*const __fini_array_start)(void), (*const __fini_array_
 
 static void libc_exit_fini(void)
 {
-#ifndef __llir__
 	uintptr_t a = (uintptr_t)&__fini_array_end;
 	for (; a>(uintptr_t)&__fini_array_start; a-=sizeof(void(*)()))
 		(*(void (**)())(a-sizeof(void(*)())))();
 	_fini();
-#endif
 }
 
 weak_alias(libc_exit_fini, __libc_exit_fini);
