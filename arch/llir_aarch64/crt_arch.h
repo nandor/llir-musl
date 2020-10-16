@@ -4,7 +4,15 @@ __asm__(
 "  .hidden _DYNAMIC, \".text\" \n"
 "  .globl " START " \n"
 START ": \n"
-// TODO
+"   mov.i64 $1, _DYNAMIC\n"
+"   mov.i64 $2, " START "_c\n"
+"   mov.i64 $3, $sp\n"
+"   mov.i64 $4, 8\n"
+"   add.i64 $5, $3, $4\n"
+"   mov.i64 $3, -16\n"
+"   and.i64 $4, $5, $3\n"
+"   set.i64 $sp, $4\n"
+"   call.c  $2, $5, $1\n"
 "   trap\n"
 "   .end\n"
 );
