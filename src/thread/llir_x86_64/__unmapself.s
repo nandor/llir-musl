@@ -1,8 +1,12 @@
 
   .section .text
 __unmapself:
+  .args         i64, i64
+  arg.i64       $2, 0
+  arg.i64       $3, 1
+
   mov.i64       $0, 11  # munmap
-  syscall.i64   $1, $0
+  syscall.i64   $1, $0, $2, $3
 
   mov.i64       $2, 60  # exit
   mov.i64       $3, 0
