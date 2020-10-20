@@ -1,7 +1,8 @@
 __asm__(
-"  .section .text \n"
-"  .weak _DYNAMIC \n"
-"  .hidden _DYNAMIC, \".text\" \n"
+"  .section .text\n"
+"  .extern _DYNAMIC, \".text\"\n"
+"  .weak _DYNAMIC\n"
+"  .hidden _DYNAMIC\n"
 "  .globl " START " \n"
 START ": \n"
 "   mov.i64 $1, _DYNAMIC\n"
