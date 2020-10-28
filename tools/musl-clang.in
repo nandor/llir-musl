@@ -52,7 +52,12 @@ then
        has_no_flag '-nostdlib' "$@" && \
        has_no_flag '-nodefaultlibs' "$@"
     then
-        args_pre="$args_pre $libc_lib/crt1.o"
+        if has_no_flag '-shared' "$@"
+        then
+            args_pre="$args_pre $libc_lib/crt1.o"
+        else
+            args_pre="$args_pre $libc_lib/Scrt1.o"
+        fi
         args_pre="$args_pre $libc_lib/crti.o"
         args_post="$args_post $libc_lib/crtn.o"
     fi
