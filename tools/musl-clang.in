@@ -68,4 +68,4 @@ then
     fi
 fi
 
-exec $cc $args_pre "$@" $args_post
+exec $cc -fno-stack-protector $args_pre "$@" $args_post
