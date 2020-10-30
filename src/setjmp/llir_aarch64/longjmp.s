@@ -20,4 +20,4 @@ longjmp:
   add.i64             $8, $0, $7
   ld.i64              $9, [$8]
 
-  raise               $9, $6, $5
+  raise.setjmp        $9, $6, $5
