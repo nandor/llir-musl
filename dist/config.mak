@@ -33,4 +33,4 @@ syslibdir = /lib
 #CFLAGS += -Werror -Wall -Wpointer-arith -Wcast-align -Wno-parentheses -Wno-char-subscripts -Wno-uninitialized -Wno-sequence-point -Wno-missing-braces -Wno-unused-value -Wno-overflow -Wno-int-to-pointer-cast
 
 # Uncomment if you want to disable building the shared library.
-#SHARED_LIBS = 
+#SHARED_LIBS =
