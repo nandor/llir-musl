@@ -21,7 +21,7 @@ static inline int a_sc(volatile int *p, int v)
     : "r"(p), "r"(v)
     : "memory"
     );
-  return !v;
+  return !r;
 }
 
 #define a_barrier a_barrier
@@ -67,7 +67,7 @@ static inline int a_sc_p(volatile int *p, void *v)
     : "r"(p), "r"(v)
     : "memory"
     );
-  return !v;
+  return !r;
 }
 
 #define a_cas_p a_cas_p
