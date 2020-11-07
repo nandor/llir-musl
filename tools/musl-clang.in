@@ -28,6 +28,9 @@ libc_inc="@INCDIR@"
 libc_lib="@LIBDIR@"
 thisdir="`cd "$(dirname "$0")"; pwd`"
 
+filename=$(basename -- "$0")
+target=${filename%"-clang"}
+
 has_no_flag() {
     pat="$1"
     shift 1
@@ -41,6 +44,10 @@ has_no_flag() {
 
 args_pre=""
 args_post=""
+
+if [ -n "$target" ]; then
+    args_pre="$args_pre -target $target"
+fi
 
 if has_no_flag '-c' "$@" && has_no_flag '-S' "$@" && has_no_flag '-E' "$@"
 then
