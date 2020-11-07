@@ -74,6 +74,9 @@ then
     then
         args_post="$args_post -lc"
     fi
+else
+    args_post="$args_post -fno-stack-protector"
+    args_post="$args_post -Wno-unused-command-line-argument"
 fi
 
-exec $cc -fno-stack-protector $args_pre "$@" $args_post
+exec $cc $args_pre "$@" $args_post
