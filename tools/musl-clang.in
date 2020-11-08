@@ -31,6 +31,17 @@ thisdir="`cd "$(dirname "$0")"; pwd`"
 filename=$(basename -- "$0")
 target=${filename%"-clang"}
 
+has_flag() {
+    pat="$1"
+    shift 1
+    for e in "$@"; do
+        if [ "$e" = "${pat}" ]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
 has_no_flag() {
     pat="$1"
     shift 1
@@ -60,7 +71,7 @@ then
        has_no_flag '-nostdlib' "$@" && \
        has_no_flag '-nodefaultlibs' "$@"
     then
-        if has_no_flag '-shared' "$@" && has_no_flag '-no-pie' "$@"
+        if has_no_flag '-shared' "$@" && has_flag '-no-pie' "$@"
         then
             args_pre="$args_pre $libc_lib/crt1.o"
         else
