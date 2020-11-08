@@ -60,7 +60,7 @@ then
        has_no_flag '-nostdlib' "$@" && \
        has_no_flag '-nodefaultlibs' "$@"
     then
-        if has_no_flag '-shared' "$@"
+        if has_no_flag '-shared' "$@" && has_no_flag '-no-pie' "$@"
         then
             args_pre="$args_pre $libc_lib/crt1.o"
         else
