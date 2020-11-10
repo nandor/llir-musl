@@ -84,3 +84,9 @@ static __inline long __syscall6(long n, long a1, long a2, long a3, long a4, long
 	  );
 	return ret;
 }
+
+#define VDSO_USEFUL
+#define VDSO_CGT_SYM "__kernel_clock_gettime"
+#define VDSO_CGT_VER "LINUX_2.6.39"
+
+#define IPC_64 0
