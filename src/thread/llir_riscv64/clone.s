@@ -1,34 +1,15 @@
-# __clone(func, stack, flags, arg, ptid, tls, ctid)
-#           a0,    a1,    a2,  a3,   a4,  a5,   a6
-
-# syscall(SYS_clone, flags, stack, ptid, tls, ctid)
-#                a7     a0,    a1,   a2,  a3,   a4
-
-.global __clone
-.type  __clone, %function
+  .section .text
 __clone:
-	# Save func and arg to stack
-	addi a1, a1, -16
-	sd a0, 0(a1)
-	sd a3, 8(a1)
+  .call       c
+  .args       i64, i64, i64, i64, i64, i64, i64
+  .noinline
+  arg.i64     $0, 0 # callee
+  arg.i64     $1, 1 # stack
+  arg.i64     $2, 2 # flags
+  arg.i64     $3, 3 # arg
+  arg.i64     $4, 4 # ptid
+  arg.i64     $5, 5 # tls
+  arg.i64     $6, 6 # ctid
+  clone.i64   $7, $0, $1, $2, $3, $4, $5, $6
+  ret         $7
 
-	# Call SYS_clone
-	mv a0, a2
-	mv a2, a4
-	mv a3, a5
-	mv a4, a6
-	li a7, 220 # SYS_clone
-	ecall
-
-	beqz a0, 1f
-	# Parent
-	ret
-
-	# Child
-1:      ld a1, 0(sp)
-	ld a0, 8(sp)
-	jalr a1
-
-	# Exit
-	li a7, 93 # SYS_exit
-	ecall

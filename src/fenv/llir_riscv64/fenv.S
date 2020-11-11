@@ -1,56 +1,38 @@
 #ifdef __riscv_flen
 
-.global feclearexcept
-.type feclearexcept, %function
+.globl feclearexcept
 feclearexcept:
-	csrc fflags, a0
-	li a0, 0
-	ret
+  trap
+  .end
 
-.global feraiseexcept
-.type feraiseexcept, %function
+.globl feraiseexcept
 feraiseexcept:
-	csrs fflags, a0
-	li a0, 0
-	ret
+  trap
+  .end
 
-.global fetestexcept
-.type fetestexcept, %function
+.globl fetestexcept
 fetestexcept:
-	frflags t0
-	and a0, t0, a0
-	ret
+  trap
+  .end
 
-.global fegetround
-.type fegetround, %function
+.globl fegetround
 fegetround:
-	frrm a0
-	ret
+  trap
+  .end
 
-.global __fesetround
-.type __fesetround, %function
+.globl __fesetround
 __fesetround:
-	fsrm t0, a0
-	li a0, 0
-	ret
+  trap
+  .end
 
-.global fegetenv
-.type fegetenv, %function
+.globl fegetenv
 fegetenv:
-	frcsr t0
-	sw t0, 0(a0)
-	li a0, 0
-	ret
+  trap
+  .end
 
-.global fesetenv
-.type fesetenv, %function
+.globl fesetenv
 fesetenv:
-	li t2, -1
-	li t1, 0
-	beq a0, t2, 1f
-	lw t1, 0(a0)
-1:	fscsr t1
-	li a0, 0
-	ret
+  trap
+  .end
 
 #endif

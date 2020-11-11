@@ -1,6 +1,11 @@
-.global __set_thread_area
-.type   __set_thread_area, %function
+  .section .text
+  .globl __set_thread_area
+  .hidden __set_thread_area
 __set_thread_area:
-	mv tp, a0
-	li a0, 0
-	ret
+  .call       c
+  .args       i64
+
+  arg.i64     $0, 0
+  set         $fs, $0
+  mov.i64     $1, 0
+  ret         $1

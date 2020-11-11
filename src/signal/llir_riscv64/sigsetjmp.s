@@ -1,23 +1,25 @@
-.global sigsetjmp
-.global __sigsetjmp
-.type sigsetjmp, %function
-.type __sigsetjmp, %function
+
+  .section .text
+  .globl sigsetjmp
 sigsetjmp:
-__sigsetjmp:
-	bnez a1, 1f
-	tail setjmp
-1:
+  .call         setjmp
+  .args         i64, i64
 
-	sd ra, 208(a0)
-	sd s0, 224(a0)
-	mv s0, a0
+  arg.i64       $0, 0   # jmpbuf
+  arg.i64       $1, 1   # savemask
 
-	call setjmp
+  jf            $1, .Lnosave
+  # TODO: implement
+  trap
 
-	mv a1, a0
-	mv a0, s0
-	ld s0, 224(a0)
-	ld ra, 208(a0)
+.Lnosave:
+  mov.i64     $1, $frame_addr
+  st          [$0], $1
 
-.hidden __sigsetjmp_tail
-	tail __sigsetjmp_tail
+  mov.i64     $2, 8
+  add.i64     $3, $0, $2
+  mov.i64     $4, $ret_addr
+  st          [$3], $4
+
+  mov.i64     $5, 0
+  ret         $5

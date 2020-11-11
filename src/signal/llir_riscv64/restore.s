@@ -1,8 +1,15 @@
-.global __restore
-.type __restore, %function
+  .globl __restore
+  .hidden __restore
 __restore:
-.global __restore_rt
-.type __restore_rt, %function
+  mov.i64     $0, 139
+  syscall     $0
+  trap
+  .end
+
+  .globl __restore_rt
+  .hidden __restore_rt
 __restore_rt:
-	li a7, 139 # SYS_rt_sigreturn
-	ecall
+  mov.i64     $0, 139
+  syscall     $0
+  trap
+  .end
