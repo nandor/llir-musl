@@ -71,11 +71,14 @@ then
        has_no_flag '-nostdlib' "$@" && \
        has_no_flag '-nodefaultlibs' "$@"
     then
-        if has_no_flag '-shared' "$@" && has_flag '-no-pie' "$@"
+        if has_no_flag '-shared' "$@"
         then
-            args_pre="$args_pre $libc_lib/crt1.o"
-        else
-            args_pre="$args_pre $libc_lib/Scrt1.o"
+            if has_flag '-no-pie' "$@"
+            then
+                args_pre="$args_pre $libc_lib/crt1.o"
+            else
+                args_pre="$args_pre $libc_lib/Scrt1.o"
+            fi
         fi
         args_pre="$args_pre $libc_lib/crti.o"
         args_post="$args_post $libc_lib/crtn.o"
