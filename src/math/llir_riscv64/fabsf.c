@@ -4,7 +4,7 @@
 
 float fabsf(float x)
 {
-	__asm__ ("fabs.s %0, %1" : "=f"(x) : "f"(x));
+	__asm__ ("abs.f32 %0, %1" : "=r"(x) : "r"(x));
 	return x;
 }
 

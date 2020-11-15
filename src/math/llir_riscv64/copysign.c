@@ -4,7 +4,7 @@
 
 double copysign(double x, double y)
 {
-	__asm__ ("fsgnj.d %0, %1, %2" : "=f"(x) : "f"(x), "f"(y));
+	__asm__ ("copysign.f64 %0, %1, %2" : "=r"(x) : "r"(x), "r"(y));
 	return x;
 }
 

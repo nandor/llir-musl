@@ -4,7 +4,7 @@
 
 float copysignf(float x, float y)
 {
-	__asm__ ("fsgnj.s %0, %1, %2" : "=f"(x) : "f"(x), "f"(y));
+	__asm__ ("copysign.f32 %0, %1, %2" : "=r"(x) : "r"(x), "r"(y));
 	return x;
 }
 

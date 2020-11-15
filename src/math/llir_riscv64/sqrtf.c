@@ -4,7 +4,7 @@
 
 float sqrtf(float x)
 {
-	__asm__ ("fsqrt.s %0, %1" : "=f"(x) : "f"(x));
+	__asm__ ("sqrt.f32 %0, %1" : "=r"(x) : "r"(x));
 	return x;
 }
 

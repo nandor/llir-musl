@@ -4,7 +4,7 @@
 
 double fabs(double x)
 {
-	__asm__ ("fabs.d %0, %1" : "=f"(x) : "f"(x));
+	__asm__ ("abs.f64 %0, %1" : "=r"(x) : "r"(x));
 	return x;
 }
 
