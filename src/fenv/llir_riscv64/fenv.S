@@ -46,11 +46,9 @@ __fesetround:
   .args         i32
   arg.i32       $0, 0
   xext.i64      $1, $0
-  mov.i64       $2, $riscv_frm
-  or.i64        $3, $2, $1
-  set           $riscv_frm, $3
-  mov.i32       $4, 0
-  ret           $4
+  set           $riscv_frm, $1
+  mov.i32       $2, 0
+  ret           $2
   .end
 
 .globl fegetenv
