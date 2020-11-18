@@ -5,7 +5,7 @@
 static inline double get_fpscr_f(void)
 {
   double d;
-  __asm__ __volatile__("ppc64_mffs %0" : "=r"(d));
+  __asm__ __volatile__("mov.f64 %0, $ppc_fpscr" : "=r"(d));
   return d;
 }
 
@@ -16,7 +16,7 @@ static inline long get_fpscr(void)
 
 static inline void set_fpscr_f(double fpscr)
 {
-  __asm__ __volatile__("ppc64_mtfsf 255, %0" : : "d"(fpscr));
+  __asm__ __volatile__("set $ppc_fpscr, %0" : : "r"(fpscr));
 }
 
 static void set_fpscr(long fpscr)

@@ -1,39 +1,88 @@
 #define __SYSCALL_LL_E(x) (x)
 #define __SYSCALL_LL_O(x) (x)
 
-static inline long __syscall0(long n)
+static __inline long __syscall0(long n)
 {
-	__builtin_trap();
+  unsigned long ret;
+  __asm__ __volatile__
+    ( "syscall.i64 %0, %1"
+    : "=r"(ret)
+    : "r"(n)
+    : "memory"
+    );
+  return ret;
 }
 
-static inline long __syscall1(long n, long a)
+static __inline long __syscall1(long n, long a1)
 {
-	__builtin_trap();
+  unsigned long ret;
+  __asm__ __volatile__
+    ( "syscall.i64 %0, %1, %2"
+    : "=r"(ret)
+    : "r"(n), "r"(a1)
+    : "memory"
+    );
+  return ret;
 }
 
-static inline long __syscall2(long n, long a, long b)
+static __inline long __syscall2(long n, long a1, long a2)
 {
-	__builtin_trap();
+  unsigned long ret;
+  __asm__ __volatile__
+    ( "syscall.i64 %0, %1, %2, %3"
+    : "=r"(ret)
+    : "r"(n), "r"(a1), "r"(a2)
+    : "memory"
+    );
+  return ret;
 }
 
-static inline long __syscall3(long n, long a, long b, long c)
+static __inline long __syscall3(long n, long a1, long a2, long a3)
 {
-	__builtin_trap();
+  unsigned long ret;
+  __asm__ __volatile__
+    ( "syscall.i64 %0, %1, %2, %3, %4"
+    : "=r"(ret)
+    : "r"(n), "r"(a1), "r"(a2), "r"(a3)
+    : "memory"
+    );
+  return ret;
 }
 
-static inline long __syscall4(long n, long a, long b, long c, long d)
+static __inline long __syscall4(long n, long a1, long a2, long a3, long a4)
 {
-	__builtin_trap();
+  unsigned long ret;
+  __asm__ __volatile__
+    ( "syscall.i64 %0, %1, %2, %3, %4, %5"
+    : "=r"(ret)
+    : "r"(n), "r"(a1), "r"(a2), "r"(a3), "r"(a4)
+    : "memory"
+    );
+  return ret;
 }
 
-static inline long __syscall5(long n, long a, long b, long c, long d, long e)
+static __inline long __syscall5(long n, long a1, long a2, long a3, long a4, long a5)
 {
-	__builtin_trap();
+  unsigned long ret;
+  __asm__ __volatile__
+    ( "syscall.i64 %0, %1, %2, %3, %4, %5, %6"
+    : "=r"(ret)
+    : "r"(n), "r"(a1), "r"(a2), "r"(a3), "r"(a4), "r"(a5)
+    : "memory"
+    );
+  return ret;
 }
 
-static inline long __syscall6(long n, long a, long b, long c, long d, long e, long f)
+static __inline long __syscall6(long n, long a1, long a2, long a3, long a4, long a5, long a6)
 {
-	__builtin_trap();
+  unsigned long ret;
+  __asm__ __volatile__
+    ( "syscall.i64 %0, %1, %2, %3, %4, %5, %6, %7"
+    : "=r"(ret)
+    : "r"(n), "r"(a1), "r"(a2), "r"(a3), "r"(a4), "r"(a5), "r"(a6)
+    : "memory"
+    );
+  return ret;
 }
 
 #define SO_RCVTIMEO_OLD  18
