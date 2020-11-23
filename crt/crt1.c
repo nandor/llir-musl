@@ -11,7 +11,9 @@ weak void _fini();
 int __libc_start_main(int (*)(), int, char **,
 	void (*)(), void(*)(), void(*)());
 
-__attribute__((noinline))
+#ifdef __llir__
+__attribute__((noinline, visibility("hidden")))
+#endif
 void _start_c(long *p)
 {
 	int argc = p[0];
