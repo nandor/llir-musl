@@ -38,6 +38,30 @@ static inline int a_swap(volatile int *p, int v)
 #define a_crash a_crash
 static inline void a_crash()
 {
-	__asm__ __volatile__ ( "trap" : : : "memory" );
+	__builtin_trap();
 }
 #endif
+
+#define a_ctz_32 a_ctz_32
+static inline int a_ctz_32(uint32_t x)
+{
+	return __builtin_ctz(x);
+}
+
+#define a_ctz_64 a_ctz_64
+static inline int a_ctz_64(uint64_t x)
+{
+	return __builtin_ctzll(x);
+}
+
+#define a_clz_32 a_clz_32
+static inline int a_clz_32(uint32_t x)
+{
+	return __builtin_clz(x);
+}
+
+#define a_clz_64 a_clz_64
+static inline int a_clz_64(uint64_t x)
+{
+	return __builtin_clzll(x);
+}
