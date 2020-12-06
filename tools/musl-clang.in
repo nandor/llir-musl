@@ -75,13 +75,13 @@ then
         then
             if has_flag '-no-pie' "$@"
             then
-                args_pre="$args_pre $libc_lib/crt1.o"
+                args_pre="$args_pre -Wl,$libc_lib/crt1.o"
             else
-                args_pre="$args_pre $libc_lib/Scrt1.o"
+                args_pre="$args_pre -Wl,$libc_lib/Scrt1.o"
             fi
         fi
-        args_pre="$args_pre $libc_lib/crti.o"
-        args_post="$args_post $libc_lib/crtn.o"
+        args_pre="$args_pre -Wl,$libc_lib/crti.o"
+        args_post="$args_post -Wl,$libc_lib/crtn.o"
     fi
 
     if has_no_flag '-nostdlib' "$@" && has_no_flag '-nodefaultlibs' "$@"
@@ -89,6 +89,7 @@ then
         args_post="$args_post -lc"
     fi
 else
+    args_post="$args_post -isystem$($cc -print-resource-dir)/include"
     args_post="$args_post -fno-stack-protector"
     args_post="$args_post -Wno-unused-command-line-argument"
 fi
