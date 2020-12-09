@@ -34,11 +34,23 @@ static inline int a_swap(volatile int *p, int v)
 	return v;
 }
 
+#define a_barrier a_barrier
+static inline void a_barrier()
+{
+	__asm__ __volatile__( "" : : : "memory" );
+}
+
+#define a_spin a_spin
+static inline void a_spin()
+{
+	__asm__ __volatile__( "x86_pause" : : : "memory" );
+}
+
 #ifndef a_crash
 #define a_crash a_crash
 static inline void a_crash()
 {
-	__builtin_trap();
+	__asm__ __volatile__("x86_hlt" : : : "memory");
 }
 #endif
 
