@@ -15,5 +15,5 @@ setjmp:
   mov.i64     $4, $ret_addr
   st          [$3], $4
 
-  mov.i64     $5, 0
+  mov.i32     $5, 0
   ret         $5
