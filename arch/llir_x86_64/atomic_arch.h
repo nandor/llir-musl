@@ -50,7 +50,7 @@ static inline void a_spin()
 #define a_crash a_crash
 static inline void a_crash()
 {
-	__asm__ __volatile__("x86_hlt" : : : "memory");
+	__asm__ __volatile__("x86_hlt; trap" : : : "memory");
 }
 #endif
 
