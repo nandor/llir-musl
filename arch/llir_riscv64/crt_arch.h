@@ -6,7 +6,7 @@ __asm__(
 "  .globl " START " \n"
 START ": \n"
 "   riscv_gp\n"
-"   mov.i64 $1, $sp\n"
+"   get.i64 $1, $sp\n"
 "   mov.i64 $2, -16\n"
 "   and.i64 $3, $1, $2\n"
 "   set.i64 $sp, $3\n"

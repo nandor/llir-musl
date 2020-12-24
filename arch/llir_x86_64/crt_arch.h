@@ -5,7 +5,7 @@ __asm__(
 "  .hidden _DYNAMIC\n"
 "  .globl " START " \n"
 START ": \n"
-"   mov.i64 $1, $sp\n"
+"   get.i64 $1, $sp\n"
 "   mov.i64 $2, -16\n"
 "   and.i64 $3, $1, $2\n"
 "   mov.i64 $4, 8\n"
