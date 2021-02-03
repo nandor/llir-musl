@@ -17,7 +17,7 @@ weak_alias(dummy1, __init_ssp);
 
 #define AUX_CNT 38
 
-#if defined(__GNUC__) && !defined(__llir__)
+#if defined(__GNUC__)
 __attribute__((__noinline__))
 #endif
 void __init_libc(char **envp, char *pn)
