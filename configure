@@ -338,6 +338,7 @@ powerpc*|ppc*) ARCH=powerpc ;;
 riscv64*) ARCH=riscv64 ;;
 sh[1-9bel-]*|sh|superh*) ARCH=sh ;;
 s390x*) ARCH=s390x ;;
+llir_i?86*) ARCH=llir_i386 ;;
 llir_x86_64*) ARCH=llir_x86_64 ;;
 llir_aarch64*) ARCH=llir_aarch64 ;;
 llir_powerpc64le*|llir_ppc64le*) ARCH=llir_powerpc64le ;;

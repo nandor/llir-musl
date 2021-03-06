@@ -1,0 +1,18 @@
+__asm__(
+"  .section .text\n"
+"  .extern _DYNAMIC, \".text\"\n"
+"  .weak _DYNAMIC\n"
+"  .hidden _DYNAMIC\n"
+"  .globl " START " \n"
+START ": \n"
+"   get.i32 $1, $sp\n"
+"   mov.i32 $2, -16\n"
+"   and.i32 $3, $1, $2\n"
+"   mov.i32 $4, 8\n"
+"   sub.i32 $5, $3, $4\n"
+"   set.i32 $sp, $5\n"
+"   mov.i32 $6, _DYNAMIC\n"
+"   mov.i32 $7, " START "_c\n"
+"   tcall.c $7, $1, $6\n"
+"   .end\n"
+);
