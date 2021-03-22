@@ -1,7 +1,7 @@
   .section .text
   .globl fegetround
 fegetround:
-  mov.i64     $0, $aarch64_fpcr
+  get.i64     $0, $aarch64_fpcr
   trunc.i32   $1, $0
   mov.i32     $2, 0x00C00000
   and.i32     $3, $2, $1
@@ -14,7 +14,7 @@ fegetround:
 __fesetround:
   .args         i32
   arg.i32       $0, 0
-  mov.i64       $1, $aarch64_fpcr
+  get.i64       $1, $aarch64_fpcr
   trunc.i32     $2, $1
   mov.i32       $3, 0xFF3FFFFF
   and.i32       $4, $2, $3
@@ -32,7 +32,7 @@ fetestexcept:
   arg.i32       $0, 0
   mov.i32       $1, 0x0000001F
   and.i32       $2, $0, $1
-  mov.i64       $3, $aarch64_fpsr
+  get.i64       $3, $aarch64_fpsr
   trunc.i32     $4, $3
   and.i32       $5, $2, $4
   ret           $5
@@ -45,7 +45,7 @@ feclearexcept:
   arg.i32       $0, 0
   mov.i32       $1, 0x0000001F
   and.i32       $2, $0, $1
-  mov.i64       $3, $aarch64_fpsr
+  get.i64       $3, $aarch64_fpsr
   trunc.i32     $4, $3
   xor.i32       $5, $4, $2
   xext.i64      $6, $5
@@ -61,7 +61,7 @@ feraiseexcept:
   arg.i32       $0, 0
   mov.i32       $1, 0x0000001F
   and.i32       $2, $0, $1
-  mov.i64       $3, $aarch64_fpsr
+  get.i64       $3, $aarch64_fpsr
   trunc.i32     $4, $3
   or.i32        $5, $4, $2
   xext.i64      $6, $5
@@ -75,11 +75,11 @@ feraiseexcept:
 fegetenv:
   .args         i64
   arg.i64       $0, 0
-  mov.i64       $1, $aarch64_fpsr
+  get.i64       $1, $aarch64_fpsr
   st            [$0], $1
   mov.i64       $2, 4
   add.i64       $3, $0, $2
-  mov.i64       $5, $aarch64_fpcr
+  get.i64       $5, $aarch64_fpcr
   st            [$3], $5
   mov.i32       $6, 0
   ret           $6
