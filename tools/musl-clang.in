@@ -60,7 +60,7 @@ if [ -n "$target" ]; then
     args_pre="$args_pre -target $target"
 fi
 
-if has_no_flag '-c' "$@" && has_no_flag '-S' "$@" && has_no_flag '-E' "$@"
+if has_no_flag '-c' "$@" && has_no_flag '-S' "$@" && has_no_flag '-E' "$@" && has_no_flag '-MM' "$@"
 then
     args_pre="$args_pre -nostdlib"
     args_pre="$args_pre -Wl,-dynamic-linker=$libc_lib/libc.so"
@@ -86,7 +86,7 @@ then
 
     if has_no_flag '-nostdlib' "$@" && has_no_flag '-nodefaultlibs' "$@"
     then
-        args_post="$args_post -lc"
+        args_post="$args_post -lc $($cc -print-libgcc-file-name --rtlib=compiler-rt) -lc"
     fi
 else
     args_post="$args_post -isystem$($cc -print-resource-dir)/include"
