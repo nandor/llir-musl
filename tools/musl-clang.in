@@ -65,6 +65,7 @@ then
     args_pre="$args_pre -nostdlib"
     args_pre="$args_pre -Wl,-dynamic-linker=$libc_lib/libc.so"
     args_pre="$args_pre -Wl,-rpath=$libc_lib"
+    args_pre="$args_pre -Wl,-rpath-link=$libc_lib"
     args_pre="$args_pre -L$libc_lib"
 
     if has_no_flag '-nostartfiles' "$@" && \
