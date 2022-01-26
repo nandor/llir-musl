@@ -23,11 +23,14 @@
 # DEALINGS IN THE SOFTWARE.
 
 cc="@CC@"
+incdir="@INCDIR@"
 libdir="@LIBDIR@"
 thisdir="`cd "$(dirname "$0")"; pwd`"
+resdir="$($cc -print-resource-dir)/lib/linux"
 
 filename=$(basename -- "$0")
 target=${filename%"-clang"}
+arch=${filename%%-*}
 
 has_flag() {
     pat="$1"
@@ -66,9 +69,7 @@ then
     args_pre="$args_pre -Wl,-rpath-link=$libdir"
     args_pre="$args_pre -L$libdir"
 
-    if has_no_flag '-nostartfiles' "$@" && \
-       has_no_flag '-nostdlib' "$@" && \
-       has_no_flag '-nodefaultlibs' "$@"
+    if has_no_flag '-nostartfiles' "$@"
     then
         if has_no_flag '-shared' "$@"
         then
@@ -81,6 +82,9 @@ then
         fi
         args_pre="$args_pre -Wl,$libdir/crti.o"
         args_post="$args_post -Wl,$libdir/crtn.o"
+
+        args_pre="$args_pre $resdir/clang_rt.crtbegin-$arch.o"
+        args_post="$args_post $resdir/clang_rt.crtend-$arch.o"
     fi
 
     if has_no_flag '-nostdlib' "$@" && has_no_flag '-nodefaultlibs' "$@"
@@ -88,6 +92,7 @@ then
         args_post="$args_post -lc $($cc -print-libgcc-file-name --rtlib=compiler-rt) -lc"
     fi
 else
+    args_post="$args_post -isystem$incdir/c++"
     args_post="$args_post -isystem$($cc -print-resource-dir)/include"
     args_post="$args_post -fno-stack-protector"
     args_post="$args_post -Wno-unused-command-line-argument"
