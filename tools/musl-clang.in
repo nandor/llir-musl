@@ -1,96 +1,35 @@
 #!/bin/sh
-
-# MIT/X Consortium License
-
-# © 2015 Eon S. Jeon <esjeon@hyunmu.am>
-#
-# Permission is hereby granted, free of charge, to any person obtaining a
-# copy of this software and associated documentation files (the "Software"),
-# to deal in the Software without restriction, including without limitation
-# the rights to use, copy, modify, merge, publish, distribute, sublicense,
-# and/or sell copies of the Software, and to permit persons to whom the
-# Software is furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
-
 cc="@CC@"
-libdir="@LIBDIR@"
+libc="@PREFIX@"
+libc_inc="@INCDIR@"
+libc_lib="@LIBDIR@"
 thisdir="`cd "$(dirname "$0")"; pwd`"
 
-filename=$(basename -- "$0")
-target=${filename%"-clang"}
-
-has_flag() {
-    pat="$1"
-    shift 1
-    for e in "$@"; do
-        if [ "$e" = "${pat}" ]; then
-            return 0
-        fi
-    done
-    return 1
-}
-
-has_no_flag() {
-    pat="$1"
-    shift 1
-    for e in "$@"; do
-        if [ "$e" = "${pat}" ]; then
-            return 1
-        fi
-    done
-    return 0
-}
-
-args_pre=""
-args_post=""
-
-if [ -n "$target" ]; then
-    args_pre="$args_pre -target $target"
-fi
-
-if has_no_flag '-c' "$@" && has_no_flag '-S' "$@" && has_no_flag '-E' "$@" && has_no_flag '-MM' "$@"
-then
-    args_pre="$args_pre -nostdlib"
-    args_pre="$args_pre -Wl,-dynamic-linker=$libdir/libc.so"
-    args_pre="$args_pre -Wl,-rpath=$libdir"
-    args_pre="$args_pre -Wl,-rpath-link=$libdir"
-    args_pre="$args_pre -L$libdir"
-
-    if has_no_flag '-nostartfiles' "$@" && \
-       has_no_flag '-nostdlib' "$@" && \
-       has_no_flag '-nodefaultlibs' "$@"
-    then
-        if has_no_flag '-shared' "$@"
-        then
-            if has_flag '-no-pie' "$@"
-            then
-                args_pre="$args_pre -Wl,$libdir/crt1.o"
-            else
-                args_pre="$args_pre -Wl,$libdir/Scrt1.o"
-            fi
-        fi
-        args_pre="$args_pre -Wl,$libdir/crti.o"
-        args_post="$args_post -Wl,$libdir/crtn.o"
+# prevent clang from running the linker (and erroring) on no input.
+sflags=
+eflags=
+for x ; do
+    case "$x" in
+        -l*) input=1 ;;
+        *) input= ;;
+    esac
+    if test "$input" ; then
+        sflags="-l-user-start"
+        eflags="-l-user-end"
+        break
     fi
+done
 
-    if has_no_flag '-nostdlib' "$@" && has_no_flag '-nodefaultlibs' "$@"
-    then
-        args_post="$args_post -lc $($cc -print-libgcc-file-name --rtlib=compiler-rt) -lc"
-    fi
-else
-    args_post="$args_post -isystem$($cc -print-resource-dir)/include"
-    args_post="$args_post -fno-stack-protector"
-    args_post="$args_post -Wno-unused-command-line-argument"
-fi
-
-exec $cc $args_pre "$@" $args_post
+exec $cc \
+    -B"$thisdir" \
+    -fuse-ld=musl-clang \
+    -static-libgcc \
+    -nostdinc \
+    --sysroot "$libc" \
+    -isystem "$libc_inc" \
+    -L-user-start \
+    $sflags \
+    "$@" \
+    $eflags \
+    -L"$libc_lib" \
+    -L-user-end
