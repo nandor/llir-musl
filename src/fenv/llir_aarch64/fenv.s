@@ -19,7 +19,7 @@ __fesetround:
   mov.i32       $3, 0xFF3FFFFF
   and.i32       $4, $2, $3
   or.i32        $5, $0, $4
-  xext.i64      $6, $5
+  x_ext.i64      $6, $5
   set           $aarch64_fpcr, $6
   mov.i32       $7, 0
   ret           $7
@@ -48,7 +48,7 @@ feclearexcept:
   get.i64       $3, $aarch64_fpsr
   trunc.i32     $4, $3
   xor.i32       $5, $4, $2
-  xext.i64      $6, $5
+  x_ext.i64      $6, $5
   set           $aarch64_fpsr, $6
   mov.i32       $7, 0
   ret           $7
@@ -64,7 +64,7 @@ feraiseexcept:
   get.i64       $3, $aarch64_fpsr
   trunc.i32     $4, $3
   or.i32        $5, $4, $2
-  xext.i64      $6, $5
+  x_ext.i64      $6, $5
   set           $aarch64_fpsr, $6
   mov.i32       $7, 0
   ret           $7
@@ -76,11 +76,11 @@ fegetenv:
   .args         i64
   arg.i64       $0, 0
   get.i64       $1, $aarch64_fpsr
-  st            [$0], $1
+  store         [$0], $1
   mov.i64       $2, 4
   add.i64       $3, $0, $2
   get.i64       $5, $aarch64_fpcr
-  st            [$3], $5
+  store         [$3], $5
   mov.i32       $6, 0
   ret           $6
   .end
@@ -92,7 +92,7 @@ fesetenv:
   arg.i64       $0, 0
   mov.i64       $1, 0xFFFFFFFF
   cmp.eq.i32    $2, $0, $1
-  jcc           $2, .Lclear, .Lset
+  jump_cond     $2, .Lclear, .Lset
 .Lclear:
   mov.i64       $3, 0
   set           $aarch64_fpsr, $3
@@ -100,10 +100,10 @@ fesetenv:
   mov.i32       $4, 0
   ret           $4
 .Lset:
-  ld.i64        $5, [$0]
+  load.i64      $5, [$0]
   mov.i64       $6, 4
   add.i64       $7, $0, $6
-  ld.i64        $8, [$7]
+  load.i64      $8, [$7]
   set           $aarch64_fpsr, $5
   set           $aarch64_fpcr, $8
   mov.i32       $9, 0

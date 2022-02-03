@@ -2,6 +2,7 @@
   .section .text
 __unmapself:
   .args         i32, i32
+  .visibility global_hidden
   arg.i32       $2, 0
   arg.i32       $3, 1
 

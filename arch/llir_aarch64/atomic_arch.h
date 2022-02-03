@@ -3,7 +3,7 @@ static inline int a_ll(volatile int *p)
 {
   int v;
   __asm__ __volatile__
-    ( "aarch64_ll.i32 %0, %1"
+    ( "aarch64_load_link.i32 %0, %1"
     : "=r"(v)
     : "r"(p)
     :
@@ -16,7 +16,7 @@ static inline int a_sc(volatile int *p, int v)
 {
   int r;
   __asm__ __volatile__
-    ( "aarch64_sc.i32 %0, %1, %2"
+    ( "aarch64_store_cond.i32 %0, %1, %2"
     : "=r"(r)
     : "r"(p), "r"(v)
     : "memory"
@@ -49,7 +49,7 @@ static inline void *a_ll_p(volatile void *p)
 {
   void *v;
   __asm__ __volatile__
-    ( "aarch64_ll.i64 %0, %1"
+    ( "aarch64_load_link.i64 %0, %1"
     : "=r"(v)
     : "r"(p)
     :
@@ -62,7 +62,7 @@ static inline int a_sc_p(volatile int *p, void *v)
 {
   int r;
   __asm__ __volatile__
-    ( "aarch64_sc.i32 %0, %1, %2"
+    ( "aarch64_store_cond.i32 %0, %1, %2"
     : "=r"(r)
     : "r"(p), "r"(v)
     : "memory"

@@ -1,6 +1,7 @@
   .section .text
 __unmapself:
   .args         i64, i64
+  .visibility   global_hidden
   arg.i64       $2, 0
   arg.i64       $3, 1
 

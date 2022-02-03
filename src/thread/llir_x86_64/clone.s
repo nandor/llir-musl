@@ -3,6 +3,7 @@ __clone:
   .call       c
   .args       i64, i64, i64, i64, i64, i64, i64
   .noinline
+  .visibility global_hidden
   arg.i64     $0, 0 # callee
   arg.i64     $1, 1 # stack
   arg.i64     $2, 2 # flags
