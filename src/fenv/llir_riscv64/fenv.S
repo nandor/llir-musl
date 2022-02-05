@@ -3,6 +3,7 @@
 .globl feclearexcept
 feclearexcept:
   .args         i32
+  .features     "", "", "+d,+f"
   arg.i32       $0, 0
   x_ext.i64      $1, $0
   get.i64       $2, $riscv_fflags
@@ -15,6 +16,7 @@ feclearexcept:
 .globl feraiseexcept
 feraiseexcept:
   .args         i32
+  .features     "", "", "+d,+f"
   arg.i32       $0, 0
   x_ext.i64      $1, $0
   get.i64       $2, $riscv_fflags
@@ -27,6 +29,7 @@ feraiseexcept:
 .globl fetestexcept
 fetestexcept:
   .args         i32
+  .features     "", "", "+d,+f"
   arg.i32       $0, 0
   get.i64       $1, $riscv_fflags
   trunc.i32     $2, $1
@@ -36,6 +39,7 @@ fetestexcept:
 
 .globl fegetround
 fegetround:
+  .features     "", "", "+d,+f"
   get.i64         $1, $riscv_frm
   trunc.i32       $2, $1
   ret             $2
@@ -44,6 +48,7 @@ fegetround:
 .globl __fesetround
 __fesetround:
   .args         i32
+  .features     "", "", "+d,+f"
   arg.i32       $0, 0
   x_ext.i64      $1, $0
   set           $riscv_frm, $1
@@ -54,6 +59,7 @@ __fesetround:
 .globl fegetenv
 fegetenv:
   .args           i64
+  .features     "", "", "+d,+f"
   arg.i64         $0, 0
   get.i64         $1, $riscv_fcsr
   trunc.i32       $2, $1
@@ -65,6 +71,7 @@ fegetenv:
 .globl fesetenv
 fesetenv:
   .args         i64
+  .features     "", "", "+d,+f"
   arg.i64       $0, 0
   mov.i64       $1, 0xFFFFFFFF
   cmp.eq.i32    $2, $0, $1
